@@ -7,13 +7,13 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
-require 'test/unit'
+require 'rspec/core'
+require 'rspec/mocks'
+require 'rspec/expectations'
 require 'shoulda'
-require 'mocha'
 
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'gibbon'
-
-class Test::Unit::TestCase
+RSpec.configure do |config|
+  config.color_enabled = true
 end
+
+require 'gibbon_sts'

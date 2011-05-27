@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.summary = %Q{Gibbon STS is a simple API wrapper for interacting with MailChimp STS API 1.0. It just a fork from the wonderful Gibbon(https://github.com/amro/gibbon)}
   gem.description = %Q{Gibbon STS is a simple API wrapper for interacting with MailChimp STS API 1.0. It just a fork from the wonderful Gibbon(https://github.com/amro/gibbon)}
   gem.email = "jaakko@suutarla.com"
-  gem.authors = ["Amro Mousa", "Jaakko Suutarla"]
+  gem.authors = ["Jaakko Suutarla"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   gem.add_runtime_dependency 'httparty', '> 0.6.0'

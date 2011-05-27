@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     crack (0.1.8)
+    diff-lcs (1.1.2)
     git (1.2.5)
     httparty (0.7.4)
       crack (= 0.1.8)
@@ -13,6 +14,14 @@ GEM
     mocha (0.9.12)
     rake (0.8.7)
     rcov (0.9.9)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.3)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
     shoulda (2.11.3)
 
 PLATFORMS
@@ -25,4 +34,5 @@ DEPENDENCIES
   json (> 1.4.0)
   mocha (> 0.9.11)
   rcov
+  rspec (~> 2.0)
   shoulda
