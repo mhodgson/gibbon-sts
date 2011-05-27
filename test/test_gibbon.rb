@@ -1,11 +1,11 @@
 require 'helper'
 
-class TestGibbon < Test::Unit::TestCase
+class TestGibbonTST < Test::Unit::TestCase
 
   context "build api url" do
     
     setup do
-      @gibbon = Gibbon::API.new
+      @gibbon = GibbonTST::API.new
     end
     
     should "handle empty api key" do
@@ -65,7 +65,7 @@ class TestGibbon < Test::Unit::TestCase
   private
   
   def expect_post(expected_url, expected_body, expected_timeout=nil)
-    Gibbon::API.expects(:post).with do |url, opts|
+    GibbonSTS::API.expects(:post).with do |url, opts|
       url == expected_url && 
       JSON.parse(opts[:body]) == expected_body &&
       opts[:timeout] == expected_timeout

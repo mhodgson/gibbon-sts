@@ -1,10 +1,10 @@
 # gibbon
 
-Gibbon is a simple API wrapper for interacting with [MailChimp API](http://www.mailchimp.com/api) 1.3.
+GibbonSTS is a simple API wrapper for interacting with [MailChimp STS API](http://apidocs.mailchimp.com/sts/1.0/) 1.0. It is forked from the wonderful [Gibbon](https://github.com/amro/gibbon)
 
 ##Installation
 
-    $ gem install gibbon
+    $ gem install gibbon-sts
     
 ##Requirements
 
@@ -14,7 +14,7 @@ A MailChimp account and API key. You can see your API keys [here](http://admin.m
 
 Create an instance of the API wrapper:
 
-    gb = Gibbon::API.new(api_key)
+    gb = GibbonSTS::API.new(api_key)
 
 Fetching data is as simple as calling API methods directly on the wrapper object. 
 Check the API [documentation](http://www.mailchimp.com/api/1.3) for details.
@@ -57,6 +57,7 @@ Gibbon defaults to a 30 second timeout. You can optionally set your own timeout 
 
 ##Thanks
 
+* [Amro Mouse](https://github.com/amro)
 * [Justin Ip](https://github.com/ippy04)
 * [elshimone](https://github.com/elshimone)
 

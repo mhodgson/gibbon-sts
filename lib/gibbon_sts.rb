@@ -2,7 +2,10 @@ require 'httparty'
 require 'json'
 require 'cgi'
 
-module Gibbon
+# gb.SendEmail('message' => {'html' => 'Hey from the mailchimp STS', 'text' => 'Hey from Mailchimp STS + Amazon SES', 'subject' => 'STS+SES', 'from_name' => 'Jaakko Suutarla', 'from_email' => 'jaakko@studentcompetitions.com', 'to_email' => ['jaakko@studentcompetitions.com', 'operations@studentcompetitions.com']}, 'track_opens' => true, 'track_clicks' => false, 'tags'=>'')
+
+
+module GibbonSTS
   class API
     include HTTParty
     default_timeout 30
@@ -11,24 +14,26 @@ module Gibbon
 
     def initialize(apikey = nil, extra_params = {})
       @apikey = apikey
-      @default_params = {:apikey => apikey}.merge(extra_params)
+      @default_params = {}.merge(extra_params) # "apikey" => apikey
     end
 
     def apikey=(value)
       @apikey = value
-      @default_params = @default_params.merge({:apikey => @apikey})
+      #@default_params = @default_params.merge({:apikey => @apikey})
     end
 
     def base_api_url
       dc = @apikey.blank? ? '' : "#{@apikey.split("-").last}."
-      "https://#{dc}api.mailchimp.com/1.3/?method="
+      "https://#{dc}sts.mailchimp.com/1.0/"
     end
 
     def call(method, params = {})
       url = base_api_url + method
-      params = escape_params(@default_params.merge(params))
-      response = API.post(url, :body => params.to_json, :timeout => @timeout)
-
+      #params = escape_params(@default_params.merge(params)) 
+      #puts "body: #{params.to_json}"
+      response = self.class.post(url, 
+        { :query => {'apikey' => @apikey}, 
+          :body => params, :timeout => @timeout})        
       begin
         response = JSON.parse(response.body)
       rescue
@@ -39,9 +44,10 @@ module Gibbon
 
     def method_missing(method, *args)
       method = method.to_s.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase } #Thanks for the gsub, Rails
-      method = method[0].chr.downcase + method[1..-1].gsub(/aim$/i, 'AIM')
+      method = method[0].chr.upcase + method[1..-1].gsub(/aim$/i, 'AIM') + ".json"
       args = {} unless args.length > 0
       args = args[0] if (args.class.to_s == "Array")
+      puts "ARgs: #{args.inspect}"
       call(method, args)
     end
     

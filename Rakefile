@@ -12,13 +12,13 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "gibbon"
-  gem.homepage = "http://github.com/amro/gibbon"
+  gem.name = "gibbon-sts"
+  gem.homepage = "http://github.com/jaakkos/gibbon-sts"
   gem.license = "MIT"
-  gem.summary = %Q{Gibbon is a simple API wrapper for interacting with MailChimp API 1.3}
-  gem.description = %Q{Gibbon is a simple API wrapper for interacting with MailChimp API version 1.3.}
-  gem.email = "amromousa@gmail.com"
-  gem.authors = ["Amro Mousa"]
+  gem.summary = %Q{Gibbon STS is a simple API wrapper for interacting with MailChimp STS API 1.0. It just a fork from the wonderful Gibbon(https://github.com/amro/gibbon)}
+  gem.description = %Q{Gibbon STS is a simple API wrapper for interacting with MailChimp STS API 1.0. It just a fork from the wonderful Gibbon(https://github.com/amro/gibbon)}
+  gem.email = "jaakko@suutarla.com"
+  gem.authors = ["Amro Mousa", "Jaakko Suutarla"]
   # Include your dependencies below. Runtime dependencies are required when using your gem,
   # and development dependencies are only needed for development (ie running rake tasks, tests, etc)
   gem.add_runtime_dependency 'httparty', '> 0.6.0'
