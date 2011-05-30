@@ -11,6 +11,7 @@ require 'rspec/core'
 require 'rspec/mocks'
 require 'rspec/expectations'
 require 'shoulda'
+require 'mail'
 
 RSpec.configure do |config|
   config.color_enabled = true

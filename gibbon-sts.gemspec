@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Gibbon STS is a simple API wrapper for interacting with MailChimp STS API 1.0. It just a fork from the wonderful Gibbon(https://github.com/amro/gibbon)}
   s.test_files = [
     "spec/gibbon_sts_spec.rb",
+    "spec/gibbon_sts_mailer_spec.rb",
     "spec/spec_helper.rb"
   ]
 

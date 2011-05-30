@@ -62,7 +62,9 @@ module GibbonSTS
   
   class Mailer
     attr_accessor :settings
-    cattr_accessor :api_client
+    class << self
+      attr_accessor :api_client
+    end
 
 
     def new(*args)
@@ -88,8 +90,9 @@ module GibbonSTS
         sts_message['from_email'] = message.from
         sts_message['subject'] = message.subject
         sts_message['to_email'] = [message.to]
-        sts_message['reply_to'] = message.replty_to
+        sts_message['reply_to'] = message.reply_to
         sts_message['from_name'] = message.from
+        sts_message
       end
         
   end

@@ -6,12 +6,19 @@ GEM
     git (1.2.5)
     httparty (0.7.4)
       crack (= 0.1.8)
+    i18n (0.6.0)
     jeweler (1.5.2)
       bundler (~> 1.0.0)
       git (>= 1.2.5)
       rake
     json (1.5.1)
+    mail (2.3.0)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.16)
     mocha (0.9.12)
+    polyglot (0.3.1)
     rake (0.8.7)
     rcov (0.9.9)
     rspec (2.6.0)
@@ -23,6 +30,8 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
     shoulda (2.11.3)
+    treetop (1.4.9)
+      polyglot (>= 0.3.1)
 
 PLATFORMS
   ruby
@@ -32,6 +41,7 @@ DEPENDENCIES
   httparty (> 0.6.0)
   jeweler (~> 1.5.1)
   json (> 1.4.0)
+  mail (~> 2.3.0)
   mocha (> 0.9.11)
   rcov
   rspec (~> 2.0)

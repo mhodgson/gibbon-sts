@@ -26,7 +26,8 @@ Jeweler::Tasks.new do |gem|
   gem.add_development_dependency 'httparty', '> 0.6.0'
   gem.add_development_dependency 'json', '> 1.4.0'
   gem.add_development_dependency 'mocha', '> 0.9.11'
-  #gem.add_development_dependency 'rspec', '> 1.2.3'
+  gem.add_development_dependency 'rspec', '> 2.0'
+  gem.add_development_dependency 'mail', '> 0'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
