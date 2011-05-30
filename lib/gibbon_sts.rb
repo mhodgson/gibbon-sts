@@ -74,15 +74,22 @@ module GibbonSTS
     end
     
     def deliver(message)
-      @time = Time.now
       sts_message = transform_to_sts_format(message)
-      
+      api_client.send_email(sts_message, 
+        'track_opens' => true, 'track_cliks' => false, 'tags' => ['confirmation'])
     end
       
     protected
     
       def transform_to_sts_format(message)
-        puts "Message: #{message.inspect}"
+        # Message will be Mail::Message
+        sts_message = {}
+        sts_message['html'] = message.message
+        sts_message['from_email'] = message.from
+        sts_message['subject'] = message.subject
+        sts_message['to_email'] = [message.to]
+        sts_message['reply_to'] = message.replty_to
+        sts_message['from_name'] = message.from
       end
         
   end
