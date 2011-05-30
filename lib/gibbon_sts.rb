@@ -73,12 +73,17 @@ module GibbonSTS
       deliver message
     end
     
-    def deliver(msg)
+    def deliver(message)
       @time = Time.now
-      
-      puts "Mailm essage:#{msg}"
+      sts_message = transform_to_sts_format(message)
       
     end
+      
+    protected
+    
+      def transform_to_sts_format(message)
+        puts "Message: #{message.inspect}"
+      end
         
   end
   
