@@ -84,7 +84,7 @@ module GibbonSTS
       def transform_to_sts_format(message)
         # Message will be Mail::Message
         sts_message = {}
-        sts_message['html'] = message.message
+        sts_message['html'] = message.body
         sts_message['from_email'] = message.from
         sts_message['subject'] = message.subject
         sts_message['to_email'] = [message.to]
