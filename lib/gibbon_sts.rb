@@ -2,9 +2,6 @@ require 'httparty'
 require 'json'
 require 'cgi'
 
-# gb.SendEmail('message' => {'html' => 'Hey from the mailchimp STS', 'text' => 'Hey from Mailchimp STS + Amazon SES', 'subject' => 'STS+SES', 'from_name' => 'Jaakko Suutarla', 'from_email' => 'jaakko@studentcompetitions.com', 'to_email' => ['jaakko@studentcompetitions.com']}, 'track_opens' => true, 'track_clicks' => false, 'tags'=>'')
-
-
 module GibbonSTS
   class API
     include HTTParty
@@ -62,4 +59,27 @@ module GibbonSTS
       end
     end
   end
+  
+  class Mailer
+    attr_accessor :settings
+    cattr_accessor :api_client
+
+
+    def new(*args)
+      self
+    end
+
+    def deliver!(message)
+      deliver message
+    end
+    
+    def deliver(msg)
+      @time = Time.now
+      
+      puts "Mailm essage:#{msg}"
+      
+    end
+        
+  end
+  
 end
