@@ -66,7 +66,7 @@ module GibbonSTS
     
     def deliver(message)
       sts_message = transform_to_sts_format(message)
-      Mailer.api.send_email(sts_message[:to_email], 
+      Mailer.api.send_email(sts_message, 
         :track_opens => true, :track_cliks => false, :tags => ['notifications'])
     end
       
