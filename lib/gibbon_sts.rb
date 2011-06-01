@@ -11,12 +11,12 @@ module GibbonSTS
 
     def initialize(apikey = nil, extra_params = {})
       @apikey = apikey
-      @default_params = { "apikey" => apikey }.merge(extra_params)
+      @default_params = { :apikey => apikey }.merge(extra_params)
     end
 
     def apikey=(value)
       @apikey = value
-      @default_params = @default_params.merge({"apikey" => @apikey})
+      @default_params = @default_params.merge({:apikey => @apikey})
     end
 
     def base_api_url
@@ -27,7 +27,7 @@ module GibbonSTS
     def call(method, params = {})
       url = base_api_url + method
       params = @default_params.merge(params)
-      response = API.post(url, :body => params)        
+      response = API.post(url, :body => params, :timeout => @timeout)        
       begin
         response = JSON.parse(response.body)
       rescue
@@ -43,30 +43,19 @@ module GibbonSTS
       args = args[0] if (args.class.to_s == "Array")
       call(method, args)
     end
-    
-    private
-    
-    def escape_params(param)
-      case param
-      when String
-        CGI::escape(param)
-      when Array
-        param.collect{|v| escape_params(v)}
-      when Hash
-        param.keys.inject({}) {|r,k| r[escape_params(k)] = escape_params(param[k]) ;r} 
-      else
-        param
-      end
-    end
   end
   
   class Mailer
     attr_accessor :settings
-    class << self
-      attr_accessor :api_client
+  
+    def self.api
+      @@api || raise("Missing connection to MailChimp using GibbonSTS::API")
     end
-
-
+  
+    def self.api=(sts_api)
+      @@api = sts_api
+    end
+  
     def new(*args)
       self
     end
@@ -77,8 +66,8 @@ module GibbonSTS
     
     def deliver(message)
       sts_message = transform_to_sts_format(message)
-      api_client.send_email(sts_message, 
-        'track_opens' => true, 'track_cliks' => false, 'tags' => ['confirmation'])
+      Mailer.api.send_email(sts_message[:to_email], 
+        :track_opens => true, :track_cliks => false, :tags => ['notifications'])
     end
       
     protected
@@ -86,15 +75,14 @@ module GibbonSTS
       def transform_to_sts_format(message)
         # Message will be Mail::Message
         sts_message = {}
-        sts_message['html'] = message.body
-        sts_message['from_email'] = message.from
-        sts_message['subject'] = message.subject
-        sts_message['to_email'] = [message.to]
-        sts_message['reply_to'] = message.reply_to
-        sts_message['from_name'] = message.from
+        sts_message[:html] = message.body
+        sts_message[:from_email] = message.from
+        sts_message[:subject] = message.subject
+        sts_message[:to_email] = message.to
+        sts_message[:reply_to] = message.reply_to
+        sts_message[:from_name] = message.from
         sts_message
       end
-        
   end
   
 end
