@@ -73,7 +73,7 @@ module GibbonSTS
     
       def transform_to_sts_format(message)
         # Message will be Mail::Message
-        sts_message = handle_multipart(message.body)
+        sts_message = handle_multipart(message)
         sts_message[:from_email] = message.from.is_a?(Array) ? message.from.first : message.from
         sts_message[:subject] = message.subject
         sts_message[:to_email] = message.to
@@ -85,10 +85,17 @@ module GibbonSTS
       def handle_multipart(message)
         sts_message = {}
         if message.multipart?
-          sts_message[:html] = message.html_part.body if message.html_part
-          sts_message[:text] = message.text_part.body if message.text_part
+          if message.html_part
+            sts_message[:html] = message.html_part.body
+            sts_message[:autogen_html] = false
+          else
+            sts_message[:html] = ""
+            sts_message[:autogen_html] = true
+          end
+          sts_message[:text] = message.text_part.body
         else
-          sts_message[:html] = message.body.to_s
+          sts_message[:html] = message.body
+          sts_message[:autogen_html] = false
         end  
         sts_message
       end
