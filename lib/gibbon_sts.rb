@@ -75,10 +75,10 @@ module GibbonSTS
         # Message will be Mail::Message
         sts_message = {}
         sts_message[:html] = message.body
-        sts_message[:from_email] = message.from.first
+        sts_message[:from_email] = message.from.is_a?(Array) ? message.from.first : message.from
         sts_message[:subject] = message.subject
         sts_message[:to_email] = message.to
-        sts_message[:reply_to] = message.reply_to
+        sts_message[:reply_to] = message.reply_to.is_a?(Array) ? message.reply_to.first : message.reply_to
         sts_message[:from_name] = message.from.first
         sts_message
       end
