@@ -60,7 +60,7 @@ module GibbonSTS
       @@api = sts_api
     end
   
-    def new(*args)
+    def initialize(*args)
       self
     end
 
