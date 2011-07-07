@@ -49,7 +49,7 @@ module GibbonSTS
     attr_accessor :settings
   
     def settings
-      @settings || []
+      @settings || Hash.new
     end
     
     def self.api
