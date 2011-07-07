@@ -48,6 +48,10 @@ module GibbonSTS
   class Mailer
     attr_accessor :settings
   
+    def settings
+      @settings || []
+    end
+    
     def self.api
       @@api || raise("Missing connection to MailChimp using GibbonSTS::API")
     end
