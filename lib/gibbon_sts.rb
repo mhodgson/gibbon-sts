@@ -78,8 +78,8 @@ module GibbonSTS
       def transform_to_sts_format(message)
         # Message will be Mail::Message
         sts_message = handle_multipart(message)
-        sts_message[:from_email] = message.from.match(/[A-Z0-9_\.%\+\-\']+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)/i).to_s
-        sts_message[:from_name] = message.from.first.gsub(/\s<([A-Z0-9_\.%\+\-\']+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel))>/i, '')
+        sts_message[:from_email] = message.from.is_a?(Array) ? message.from.first : message.from
+        sts_message[:from_name] = message[:from].to_s.gsub(/\s<([A-Z0-9_\.%\+\-\']+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel))>/i, '')
         sts_message[:subject] = message.subject
         sts_message[:to_email] = message.to.to_a
         sts_message[:cc_email] = message.cc.to_a unless message.cc.nil?
