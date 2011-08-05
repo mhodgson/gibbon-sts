@@ -86,6 +86,7 @@ module GibbonSTS
         sts_message[:cc_email] = message.cc.to_a unless message.cc.nil?
         sts_message[:bcc_email] = message.bcc.to_a unless message.bcc.nil?
         sts_message[:reply_to] = message.reply_to.to_a unless message.reply_to.nil?
+        puts sts_message.inspect
         sts_message
       end
       
