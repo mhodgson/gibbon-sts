@@ -70,7 +70,7 @@ module GibbonSTS
     
     def deliver(message)
       sts_message = transform_to_sts_format(message)
-      Mailer.api.send_email({:message => sts_message, :track_opens => true, :track_cliks => false, :tags => []})
+      Mailer.api.send_email({:message => sts_message, :track_opens => true, :track_clicks => true, :tags => []})
     end
       
     protected
@@ -78,11 +78,13 @@ module GibbonSTS
       def transform_to_sts_format(message)
         # Message will be Mail::Message
         sts_message = handle_multipart(message)
-        sts_message[:from_email] = message.from.is_a?(Array) ? message.from.first : message.from
+        sts_message[:from_email] = message.from.match(/[A-Z0-9_\.%\+\-\']+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel)/i).to_s
+        sts_message[:from_name] = message.from.first.gsub(/\s<([A-Z0-9_\.%\+\-\']+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2,4}|museum|travel))>/i, '')
         sts_message[:subject] = message.subject
-        sts_message[:to_email] = message.to
-        sts_message[:reply_to] = message.reply_to.is_a?(Array) ? message.reply_to.first : message.reply_to unless message.reply_to.nil?
-        sts_message[:from_name] = message.from.first
+        sts_message[:to_email] = message.to.to_a
+        sts_message[:cc_email] = message.cc.to_a unless message.cc.nil?
+        sts_message[:bcc_email] = message.bcc.to_a unless message.bcc.nil?
+        sts_message[:reply_to] = message.reply_to.to_a unless message.reply_to.nil?
         sts_message
       end
       
