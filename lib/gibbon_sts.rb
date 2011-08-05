@@ -70,7 +70,7 @@ module GibbonSTS
     
     def deliver(message)
       sts_message = transform_to_sts_format(message)
-      sts_tags = sts_message.header['sts-tags'] ? sts_message.header['sts-tags'].value.split(",") : []
+      sts_tags = message.header['sts-tags'] ? sts_message.header['sts-tags'].value.split(",") : []
       Mailer.api.send_email({:message => sts_message, :track_opens => true, :track_clicks => true, :tags => sts_tags})
     end
       
