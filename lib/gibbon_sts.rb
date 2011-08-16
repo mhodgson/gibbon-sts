@@ -71,7 +71,9 @@ module GibbonSTS
     def deliver(message)
       sts_message = transform_to_sts_format(message)
       sts_tags = message.header['sts-tags'] ? message.header['sts-tags'].value.split(",") : []
-      Mailer.api.send_email({:message => sts_message, :track_opens => true, :track_clicks => true, :tags => sts_tags})
+      track_clicks = (message.header['sts-track-clicks'] || 'false') == 'true'
+      track_opens = (message.header['sts-track-opens'] || 'false') == 'true'
+      Mailer.api.send_email({:message => sts_message, :track_opens => track_opens, :track_clicks => track_clicks, :tags => sts_tags})
     end
       
     protected
